@@ -115,3 +115,74 @@ GROUP BY
     [City],
     [StateProvince],
     [AddressType]      -- Most of the customers were from London
+ORDER BY
+    number_of_times DESC
+
+-- CANADA
+-- How many customers were from Canada
+SELECT
+    [FirstName],
+    [MiddleName],
+    [LastName],
+    [EmailAddress],
+    [CountryRegion],
+    [AddressLine1],
+    [AddressLine2],
+    [City],
+    [StateProvince],
+    [AddressType]
+FROM
+    [SalesLT].[Customer] c
+JOIN
+    [SalesLT].[CustomerAddress] ca
+    ON  c.CustomerID = ca.CustomerID
+JOIN
+    [SalesLT].[Address] a
+    ON ca.AddressID = a.AddressID
+WHERE
+    [CountryRegion] = 'Canada'
+
+-- Which City from Canada showed up the most from the dataset
+SELECT
+    COUNT(*) AS number_of_times,
+    [CountryRegion],
+    [City],
+    [StateProvince],
+    [AddressType]
+FROM
+    [SalesLT].[Customer] c
+JOIN
+    [SalesLT].[CustomerAddress] ca
+    ON  c.CustomerID = ca.CustomerID
+JOIN
+    [SalesLT].[Address] a
+    ON ca.AddressID = a.AddressID
+WHERE
+    [CountryRegion] = 'Canada'
+GROUP BY 
+    [CountryRegion],
+    [City],
+    [StateProvince],
+    [AddressType]
+ORDER BY 
+    number_of_times DESC
+-- Most of the customers were from Toronto then follow by Montreal, all the AddressType were Main Office except one from Montreal which was a Shipping AddressType
+
+-- How many times did a StateProvince appear in the dataset
+SELECT
+    COUNT(*) AS number_of_times,
+    [StateProvince]
+FROM
+    [SalesLT].[Customer] c
+JOIN
+    [SalesLT].[CustomerAddress] ca
+    ON  c.CustomerID = ca.CustomerID
+JOIN
+    [SalesLT].[Address] a
+    ON ca.AddressID = a.AddressID
+WHERE
+    [CountryRegion] = 'Canada'
+GROUP BY 
+    [StateProvince]
+ORDER BY 
+    number_of_times DESC  -- Ontario showed up the most 51 times followed by Quebec with 24
