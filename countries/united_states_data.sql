@@ -197,6 +197,24 @@ JOIN
 WHERE
     [City] = 'Seattle'
 
-
-    
+-- These are the salespersons that have more than 50 customers in the US
+SELECT
+    COUNT(*) AS number_of_times,
+    [SalesPerson],
+    SUBSTRING(SalesPerson, 17, 9) AS SalesPerson_username
+FROM
+    [SalesLT].[Customer] c
+JOIN
+    [SalesLT].[CustomerAddress] ca
+    ON  c.CustomerID = ca.CustomerID
+JOIN
+    [SalesLT].[Address] a
+    ON ca.AddressID = a.AddressID
+WHERE
+    [CountryRegion] = 'United States'
+GROUP BY
+    [SalesPerson]
+HAVING COUNT(*) > 50
+ORDER BY 
+    number_of_times DESC
 
