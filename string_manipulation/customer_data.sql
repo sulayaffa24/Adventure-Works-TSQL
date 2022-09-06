@@ -45,6 +45,25 @@ JOIN
     ON ca.AddressID = a.AddressID
 WHERE
     [City] = 'Seattle'
+
+-- How many times did a StateProvince appear in the dataset
+SELECT
+    COUNT(*) AS number_of_times,
+    [StateProvince]
+FROM
+    [SalesLT].[Customer] c
+JOIN
+    [SalesLT].[CustomerAddress] ca
+    ON  c.CustomerID = ca.CustomerID
+JOIN
+    [SalesLT].[Address] a
+    ON ca.AddressID = a.AddressID
+WHERE
+    [CountryRegion] = 'United States'
+GROUP BY 
+    [StateProvince]
+ORDER BY 
+    number_of_times DESC  -- California showed up the most with 65 times followed by Washington with 48
     
 
 -- Let's find the customers that are not located in the United States
