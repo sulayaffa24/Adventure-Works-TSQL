@@ -153,6 +153,26 @@ GROUP BY
 ORDER BY 
     [SalesPerson] DESC  -- There were 2 sales persons pamela and david, pamela had 25 customers and david had 23
 
+-- I was also curious to find which salesperson has the most customers in the United States
+SELECT
+    COUNT(*) AS number_of_times,
+    [SalesPerson],
+    SUBSTRING(SalesPerson, 17, 9) AS SalesPerson_username
+FROM
+    [SalesLT].[Customer] c
+JOIN
+    [SalesLT].[CustomerAddress] ca
+    ON  c.CustomerID = ca.CustomerID
+JOIN
+    [SalesLT].[Address] a
+    ON ca.AddressID = a.AddressID
+WHERE
+    [CountryRegion] = 'United States'
+GROUP BY
+    [SalesPerson]
+ORDER BY 
+    number_of_times DESC  
+
 -- Let's find all the customers who live in the city 'Seattle'
 
 SELECT
